@@ -1,6 +1,6 @@
 <?php
 
-$config = require_once 'config.php'; // nazwanie tablicy zaimportowanej z pliku config.php przy pomocy return
+$config = require_once 'config-reznor.php'; // nazwanie tablicy zaimportowanej z pliku config.php przy pomocy return
 
 try
 {

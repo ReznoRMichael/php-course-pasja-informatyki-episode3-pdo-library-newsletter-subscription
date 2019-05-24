@@ -13,11 +13,23 @@ if (isset($_POST['email'])) // jesli zostal wyslany email
 		header('Location: index.php');
 		exit();
 	}
+
+	// Bot or not?
+	$secret = require_once 'secret.php';
+	$botornot = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+	$botornot_decoded = json_decode($botornot);
+	// check = bot or not
+	if ($botornot_decoded->success==false)
+	{
+		$_SESSION['e_bot']="You have not confirmed that you are not a bot.";
+		header('Location: index.php');
+		exit();
+	}
 	else
 	{
 		require_once 'database.php'; // polaczenie z baza danych
 		
-		$valid_email_query = $db -> query("SELECT * FROM users WHERE email = '{$_POST['email']}'");
+		$valid_email_query = $db -> query("SELECT * FROM reznor_newsletter_users WHERE email = '{$_POST['email']}'");
 		$valid_email = $valid_email_query -> fetch();
 		if($valid_email)
 		{
@@ -27,7 +39,7 @@ if (isset($_POST['email'])) // jesli zostal wyslany email
 		}
 		else
 		{
-			$query = $db -> prepare('INSERT INTO users VALUES (NULL, :email)'); // przygotowanie zapytania z etykietą (dane jeszcze nie zostają zapisane w bazie)
+			$query = $db -> prepare('INSERT INTO reznor_newsletter_users VALUES (NULL, :email)'); // przygotowanie zapytania z etykietą (dane jeszcze nie zostają zapisane w bazie)
 			$query -> bindValue(':email', $email, PDO::PARAM_STR); // przypisz wartosc do etykiety zdefiniowanej wyzej; 1-nazwa etykiety, 2-zmienna z ktorej pobrac, 3-typ zmiennej
 			$query -> execute(); // wykonaj zapytanie
 			//echo $_POST['email'].'<br>'.$email;
@@ -42,13 +54,13 @@ else // jesli nie zostal wyslany
 
 ?>
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
-    <title>Zapisanie się do newslettera</title>
-    <meta name="description" content="Używanie PDO - zapis do bazy MySQL">
-    <meta name="keywords" content="php, kurs, PDO, połączenie, MySQL">
+    <title>Subscribe to the newsletter</title>
+    <meta name="description" content="PDO usage - saving into MySQL database">
+    <meta name="keywords" content="php, course, PDO, connection, MySQL">
 
     <meta http-equiv="X-Ua-Compatible" content="IE=edge">
 
@@ -70,7 +82,7 @@ else // jesli nie zostal wyslany
 
         <main>
             <article>
-                <p>Dziękujemy za zapisanie się na listę mailową naszego newslettera!</p>
+                <p>Thank you for subscribing to our newsletter!</p>
             </article>
         </main>
 

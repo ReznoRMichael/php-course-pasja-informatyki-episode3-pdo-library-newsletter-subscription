@@ -12,9 +12,9 @@ if(isset($_SESSION['logged_id']))
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>Panel administracyjny</title>
-    <meta name="description" content="Używanie PDO - odczyt z bazy MySQL">
-    <meta name="keywords" content="php, kurs, PDO, połączenie, MySQL">
+    <title>Admin Panel</title>
+    <meta name="description" content="PDO usage - reading from MySQL database">
+    <meta name="keywords" content="php, course, PDO, connection, MySQL">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="stylesheet" href="main.css">
@@ -35,20 +35,24 @@ if(isset($_SESSION['logged_id']))
             <article>
                 <form method="post" action="list.php">
                     <label>Login <input type="text" name="login" <?= isset($_SESSION['given_login']) ? 'value="'.$_SESSION['given_login'].'"' : '' ?> ></label>
-                    <label>Hasło <input type="password" name="pass"></label>
-                    <input type="submit" value="Zaloguj się!">
+                    <label>Password <input type="password" name="pass"></label>
+                    <label><input type="checkbox" name="guest"> Log in as Guest</label>
+                    <input type="submit" value="Log in!">
 					
 					<?php
 					
 						if(isset($_SESSION['bad_attempt']))
 						{
-							echo '<p>Niepoprawny login lub hasło.</p>';
+							echo '<p>Invalid username or password.</p>';
 							unset($_SESSION['bad_attempt']);
 							unset($_SESSION['given_login']);
 						}
 					
 					?>
                 </form>
+
+                <p><a href="index.php"><button>Back to subscribe page</button></a></p>
+
             </article>
         </main>
 

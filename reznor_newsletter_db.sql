@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
+-- version 4.7.3
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Czas generowania: 30 Lis 2017, 13:24
--- Wersja serwera: 5.6.26
--- Wersja PHP: 5.6.12
+-- Host:
+-- Generation Time: May 24, 2019 at 03:30 PM
+-- Server version: 5.6.43-log
+-- PHP Version: 7.0.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,44 +19,44 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `newsletter`
+-- Database: `reznortejhadmin`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `admins`
+-- Table structure for table `reznor_newsletter_admins`
 --
 
-CREATE TABLE IF NOT EXISTS `admins` (
+CREATE TABLE `reznor_newsletter_admins` (
   `id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `admins`
+-- Dumping data for table `reznor_newsletter_admins`
 --
 
-INSERT INTO `admins` (`id`, `login`, `password`) VALUES
+INSERT INTO `reznor_newsletter_admins` (`id`, `login`, `password`) VALUES
 (1, 'adam', '$2y$10$4sZdn0EaurMzGCAla1Up7OJ8vDmhJjKdsyCtQIAIuJ3AuxQ0m0Tly');
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `reznor_newsletter_users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `reznor_newsletter_users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `users`
+-- Dumping data for table `reznor_newsletter_users`
 --
 
-INSERT INTO `users` (`id`, `email`) VALUES
+INSERT INTO `reznor_newsletter_users` (`id`, `email`) VALUES
 (1, 'adam@gmail.com'),
 (2, 'marek@gmail.com'),
 (3, 'anna@gmail.com'),
@@ -67,19 +69,19 @@ INSERT INTO `users` (`id`, `email`) VALUES
 (10, 'roman@gmail.com');
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admins`
+-- Indexes for table `reznor_newsletter_admins`
 --
-ALTER TABLE `admins`
+ALTER TABLE `reznor_newsletter_admins`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indexes for table `reznor_newsletter_users`
 --
-ALTER TABLE `users`
+ALTER TABLE `reznor_newsletter_users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -87,15 +89,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `admins`
+-- AUTO_INCREMENT for table `reznor_newsletter_admins`
 --
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+ALTER TABLE `reznor_newsletter_admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `reznor_newsletter_users`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+ALTER TABLE `reznor_newsletter_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

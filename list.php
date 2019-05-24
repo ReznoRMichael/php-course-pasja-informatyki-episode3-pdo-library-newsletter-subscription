@@ -5,14 +5,14 @@ require_once 'database.php';
 
 if(!isset($_SESSION['logged_id'])) // jesli nie jestesmy aktualnie zalogowani
 {
-	if(isset($_POST['login']))
+	if(isset($_POST['login']) && !isset($_POST['guest']))
 	{
 		$login = filter_input(INPUT_POST, 'login'); // pobranie i zapisanie wartosci z input login - admin.php
 		$password = filter_input(INPUT_POST, 'pass'); // pobranie i zapisanie wartosci z input pass - admin.php
 		
 		//echo $login." ".$password;
 		
-		$userQuery = $db -> prepare('SELECT id, password FROM admins WHERE login = :login'); // przygotowanie zapytania SQL
+		$userQuery = $db -> prepare('SELECT id, password FROM reznor_newsletter_admins WHERE login = :login'); // przygotowanie zapytania SQL
 		$userQuery -> bindValue(':login', $_POST['login'], PDO::PARAM_STR); // przypisanie wartosci do etykiety :login
 		$userQuery -> execute();
 		
@@ -35,6 +35,17 @@ if(!isset($_SESSION['logged_id'])) // jesli nie jestesmy aktualnie zalogowani
 			exit();
 		}
 	}
+	else if(isset($_POST['guest']))
+	{
+		$userQuery = $db -> prepare('SELECT id FROM reznor_newsletter_admins WHERE login = :login'); // przygotowanie zapytania SQL
+		$userQuery -> bindValue(':login', "adam", PDO::PARAM_STR); // przypisanie wartosci do etykiety :login
+		$userQuery -> execute();
+
+		$user = $userQuery -> fetch();
+
+		$_SESSION['logged_id'] = $user['id'];
+		unset($_SESSION['bad_attempt']);
+	}
 	else
 	{
 		header('Location: admin.php');
@@ -42,7 +53,7 @@ if(!isset($_SESSION['logged_id'])) // jesli nie jestesmy aktualnie zalogowani
 	}
 }
 
-$usersQuery = $db -> query('SELECT * FROM users');
+$usersQuery = $db -> query('SELECT * FROM reznor_newsletter_users');
 $users = $usersQuery -> fetchAll();
 
 // echo $users;
@@ -50,12 +61,12 @@ $users = $usersQuery -> fetchAll();
 
 ?>
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Panel administracyjny</title>
-    <meta name="description" content="Używanie PDO - odczyt z bazy MySQL">
-    <meta name="keywords" content="php, kurs, PDO, połączenie, MySQL">
+    <title>Admin Panel</title>
+    <meta name="description" content="PDO usage - reading from MySQL database">
+    <meta name="keywords" content="php, course, PDO, connection, MySQL">
     <meta http-equiv="X-Ua-Compatible" content="IE=edge">
 
     <link rel="stylesheet" href="main.css">
@@ -78,7 +89,7 @@ $users = $usersQuery -> fetchAll();
 			
 				<table>
 					<thead>
-						<tr><th colspan="2">Łącznie rekordów: <?= $usersQuery->rowCount() ?></th></tr>
+						<tr><th colspan="2">Total records: <?= $usersQuery->rowCount() ?></th></tr>
 						<tr><th>ID</th>  <th>E-mail</th></tr>
 					</thead>
 					<tbody>
@@ -94,7 +105,7 @@ $users = $usersQuery -> fetchAll();
 					</tbody>
 				</table>
 				
-				<p><a href="logout.php">Wyloguj się</a></p>
+				<p><a href="logout.php"><button>Log out</button></a></p>
   
             </article>
         </main>
