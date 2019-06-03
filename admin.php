@@ -18,6 +18,8 @@ if(isset($_SESSION['logged_id']))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <script src="cookiealert/cookiealert_1_2.js"></script><script>CookieAlert.init();</script>
     <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
     <!--[if lt IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
